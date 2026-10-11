@@ -81,6 +81,25 @@ public:
 
     }
 
+    void reverse()
+    {
+        if (size_ == 0)
+        {
+            std::cout << "ArrayList is empty." << std::endl;
+            return;
+        }
+        int j = size_ - 1;
+        for (int i = 0; i < (size_ - 1) / 2; ++i)
+        {
+            int* temp_ = data_[i];
+            data_[i] = data_[j];
+            data_[j] = temp_;
+            j--;
+
+        }
+
+    }
+
     bool search(T* value) const override
     {
         for (int i = 0; i < size_; ++i)

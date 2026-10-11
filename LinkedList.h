@@ -17,6 +17,7 @@ public:
         Node<T>* fresh = new Node<T>(value);
         fresh -> next = head_;
         head_ = fresh;
+        size_++;
     }
 
     void addAnywhere(int position, T* value) override
@@ -30,6 +31,7 @@ public:
 
         newNode -> next = current -> next;
         current -> next = newNode;
+        size_++;
     }
     void deleteFront() override
     {
@@ -42,6 +44,36 @@ public:
         head_ = head_ -> next;
         delete doomed -> data;
         delete doomed;
+        size_--;
+    }
+    void deleteAnywhere(int position) override
+    {
+        if (size_ == 0)
+        {
+            std::cout <<"LinkedList is empty." << std::endl;
+            return;
+        }
+        else if (position < 0 || position > size_ - 1)
+        {
+            std::cout <<"Position out of bounds." << std::endl;
+            return;
+        }
+        Node<T>* current = head_;
+        Node<T>* doomed = current->next;
+
+        for (int i = 0; i < position; ++i)
+        {
+            current = current->next;
+            doomed = doomed -> next;
+        }
+
+        current->next = doomed -> next;
+        delete doomed -> data;
+        delete doomed;
+        size_--;
+
+
+
     }
     bool search(T* value) const override
     {
@@ -73,4 +105,5 @@ public:
     }
 private:
     Node<T>* head_;
+    int size_ = 0;
 };

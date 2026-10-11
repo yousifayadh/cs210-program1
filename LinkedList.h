@@ -71,9 +71,21 @@ public:
         delete doomed -> data;
         delete doomed;
         size_--;
+    }
 
+    void reverse ()
+    {
+        Node<T>* current = head_;
+        Node<T>* prev = nullptr;
 
-
+        while (current != nullptr)
+        {
+            Node<T>* next = current->next;
+            current->next = prev;
+            prev = current;
+            current = next;
+        }
+        head_ = prev;
     }
     bool search(T* value) const override
     {

@@ -89,7 +89,7 @@ public:
             return;
         }
         int j = size_ - 1;
-        for (int i = 0; i < (size_ - 1) / 2; ++i)
+        for (int i = 0; i < size_ / 2; ++i)
         {
             int* temp_ = data_[i];
             data_[i] = data_[j];

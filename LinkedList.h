@@ -63,7 +63,7 @@ public:
             std::cout <<"LinkedList is empty." << std::endl;
             return;
         }
-        else if (position < 0 || position > size_ - 1)
+        if (position < 0 || position > size_ - 1)
         {
             std::cout <<"Position out of bounds." << std::endl;
             return;

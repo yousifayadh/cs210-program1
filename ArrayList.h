@@ -34,13 +34,13 @@ public:
             std::cout << "ArrayList is full." << std::endl;
             return;
         }
-        else if (size_ == 0 && position == 0)
+        if (size_ == 0 && position == 0)
         {
             data_[0] = value;
             ++size_;
             return;
         }
-        else if (position >= size_ || position < 0)
+        if (position >= size_ || position < 0)
         {
             std::cout << "Position out of range." << std::endl;
             return;
@@ -75,7 +75,7 @@ public:
             std::cout << "ArrayList is empty." << std::endl;
             return;
         }
-        else if (position > size_ -1 || position < 0)
+        if (position > size_ -1 || position < 0)
         {
             std::cout << "Position out of range." << std::endl;
             return;

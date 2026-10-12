@@ -28,9 +28,16 @@ public:
     }
     void addAnywhere(int position, T* value) override
     {
+
         if (size_ >= CAPACITY)
         {
             std::cout << "ArrayList is full." << std::endl;
+            return;
+        }
+        else if (size_ == 0 && position == 0)
+        {
+            data_[0] = value;
+            ++size_;
             return;
         }
         else if (position >= size_ || position < 0)
@@ -38,6 +45,7 @@ public:
             std::cout << "Position out of range." << std::endl;
             return;
         }
+
         for (int i = size_; i > position; --i)
         {
             data_[i] = data_[i - 1];
@@ -91,7 +99,7 @@ public:
         int j = size_ - 1;
         for (int i = 0; i < size_ / 2; ++i)
         {
-            int* temp_ = data_[i];
+            T* temp_ = data_[i];
             data_[i] = data_[j];
             data_[j] = temp_;
             j--;
@@ -116,6 +124,30 @@ public:
             std::cout << *data_[i] << ",";
         }
         std::cout << std::endl;
+    }
+
+    void concat(List<T>* other) override
+    {
+        ArrayList* array = dynamic_cast<ArrayList*>(other);
+        if (array == nullptr)
+        {
+            std::cout << "Mismatch in type." << std::endl;
+            return;
+        }
+        int total_size_ = size_ + array->size_;
+        if (size_ + array->size_ > CAPACITY) {
+            std::cout << "Can't concat these two lists (too many items)." << std::endl;
+            return;
+        }
+        int j = 0;
+        for (int i = 0; i < array->size_ ; ++i)
+        {
+            data_[size_ + j] = array->data_[j];
+            j++;
+        }
+        size_ = total_size_;
+
+        array->size_ = 0;
     }
 
     ~ArrayList() override

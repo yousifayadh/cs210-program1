@@ -22,13 +22,23 @@ public:
 
     void addAnywhere(int position, T* value) override
     {
+
+        if (position < 0 || position > size_)
+        {
+            std::cout <<"Position out of bounds." << std::endl;
+            return;
+        }
+        if (position == 0 && size_ == 0)
+        {
+            head_ = new Node<T>(value);
+            return;
+        }
         Node<T>* current = head_;
-        for (int i = 0; i < position; ++i)
+        for (int i = 0; i < position - 1; ++i)
         {
             current = current->next;
         }
         Node<T>* newNode = new Node<T>(value);
-
         newNode -> next = current -> next;
         current -> next = newNode;
         size_++;
@@ -61,7 +71,7 @@ public:
         Node<T>* current = head_;
         Node<T>* doomed = current->next;
 
-        for (int i = 0; i < position; ++i)
+        for (int i = 0; i < position - 1; ++i)
         {
             current = current->next;
             doomed = doomed -> next;
@@ -107,6 +117,33 @@ public:
         }
         std::cout << std::endl;
     }
+    void concat(List<T>* other) override
+    {
+        LinkedList* linked = dynamic_cast<LinkedList*>(other);
+        if (linked == nullptr)
+        {
+            std::cout << "Mismatch in type." << std::endl;
+            return;
+        }
+        Node<T>*current = nullptr;
+        if (head_ != nullptr)
+        {
+            current = head_;
+            while (current->next != nullptr)
+            {
+                current = current->next;
+            }
+        }
+        current->next = linked->head_;
+
+
+        size_ += linked->size_;
+
+        linked->head_ = nullptr;
+        linked->size_ = 0;
+    }
+
+
     ~LinkedList() override {
         while (head_ != nullptr) {
             Node<T>* doomed = head_;
